@@ -60,8 +60,8 @@ I initially discovered the impetus for this project by being pointed to it by a 
 	
 In addition, FInch from Puppet Labs has also been immensely helpful in that he has created the Vagrant Plugins that makes pelab-vagrant work.  They are:
 
-	[vagrant-pe_build](https://github.com/oscar-stack/vagrant-pe_build) - Builds Puppet Enterprise
-	[vagrant-hosts](https://github.com/oscar-stack/vagrant-hosts)    - Incorproates "sensible" DNS into the VMs
+	https://github.com/oscar-stack/vagrant-pe_build - Builds Puppet Enterprise
+	https://github.com/oscar-stack/vagrant-hosts    - Incorproates "sensible" DNS into the VMs
 	
 
 	  
