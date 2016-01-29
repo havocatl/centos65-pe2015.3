@@ -1,13 +1,19 @@
-***Puppet Development Environment***
+# Puppet Enterprise 4-Node Environment
+Includes a Puppet Master plus a Development, Testing, and Production Node
 
-This project contains a Puppet Enterprise Testing
-Environment to be used in testing code for Puppet.
+In the rollup, I have:
 
-It contains a Puppet Master with 3 Agent nodes, each
-existing in their own environment, whether "development", "testing", or "production".
+CentOS Linux 6.5<br>
+Puppet Master with Puppet Enterprise 2015.2<br>
+Puppet Agents 1-3, all customized to the following three environments:<br>
+- development<br>
+- testing<br>
+- production<br>
 
-R10k is rudimentally installed and configured with a very basic control repo.  This control repo is generic and contains no reference to any custom modules, you will need to supply these for yourself.
+**Instructional Documentation:**
 
-Recommendation: Clone this repo and the destination control repo to your own Git repository, and modify the included Puppetfile to suit your own needs.
+[OSX Installation](https://github.com/cvquesty/centos65-pe2015.2/blob/master/doc/README_OSX.md)
 
-Read the docs/README_{platform}.md file that is appropriate to your platform for details regarding your OS.
+[Linux Installation](https://github.com/cvquesty/centos65-pe2015.2/blob/master/doc/README_Linux.md)
+
+[Windows Installation](https://github.com/cvquesty/centos65-pe2015.2/blob/master/doc/README_Winows.md)
