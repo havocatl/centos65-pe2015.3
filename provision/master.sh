@@ -6,9 +6,12 @@ export PATH=$PATH:/opt/puppetlabs/puppet/bin/
 # Install Zack's r10k module
 /opt/puppetlabs/puppet/bin/puppet module install 'zack-r10k'
 
-# Stop and disable Firewalld
-/bin/systemctl stop  firewalld.service
-/bin/systemctl disable firewalld.service
+# Install Hunner's Hiera module
+/opt/puppetlabs/puppet/bin/puppet module install 'hunner-hiera'
+
+# Stop and disable iptables
+/sbin/service iptables stop
+/sbin/service iptables off
 
 # Place the r10k configuration file
 cat > /var/tmp/configure_r10k.pp << 'EOF'
@@ -16,7 +19,7 @@ class { 'r10k':
   version           => '2.0.2',
   sources           => {
     'puppet' => {
-      'remote'  => 'https://github.com/cvquesty/puppet_repository.git',
+      'remote'  => 'https://github.com/cvquesty/control_repo.git',
       'basedir' => "${::settings::codedir}/environments",
       'prefix'  => false,
     }
@@ -50,24 +53,28 @@ ini_setting { 'Configure basemodulepath':
 }
 EOF
 
-# Now place the hiera.yaml in the proper location
-cat > /etc/puppetlabs/puppet/hiera.yaml << 'EOF'
----
-:backends:
-  - yaml
-:hierarchy:
-  - "%{clientcert}"
-  - "%{environment}"
-  - common
-:yaml:
-  :datadir: "/etc/puppetlabs/code/environments/%{environment}/hieradata"
-EOF
+# Now configure Hiera
+  cat > /var/tmp/configure_hiera.pp << 'EOF'
+  class { 'hiera':
+    hiera_yaml => '/etc/puppetlabs/code/hiera.yaml',
+    hierarchy  => [
+      'nodes/%{clientcert}',
+      '%{environment}',
+      'common',
+    ],
+    logger     => 'console',
+    datadir    => '/etc/puppetlabs/code/environments/%{environment}/hieradata'
+  }
+  EOF
 
 # Now, apply your new configuration
 /opt/puppetlabs/puppet/bin/puppet apply /var/tmp/configure_r10k.pp
 
 # Then configure directory environments
 /opt/puppetlabs/puppet/bin/puppet apply /var/tmp/configure_directory_environments.pp
+
+# Then Configure Hiera
+/opt/puppetlabs/puppet/bin/puppet apply /var/tmp/configure_hiera.pp
 
 # Move the r10k.yaml to the new location
 /usr/bin/mv /etc/r10k.yaml /etc/puppetlabs/r10k/r10k.yaml
