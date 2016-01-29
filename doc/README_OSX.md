@@ -1,4 +1,4 @@
-#Linux Installation Instructions
+#OSX Installation Instructions
 
 ###Required Software
 
@@ -12,9 +12,7 @@
 	
 **Install Git**
 
-If it isn't already installed, install Git via your package management system.  E.g.:
-
-	sudo yum -y install git
+If it isn't already installed, install Git via the Apple Command Line Utilities from Apple's https://developer.apple.com website.
 
 **Install Vagrant Plugins**
 
@@ -31,11 +29,11 @@ Install each product according to its instructions.  When complete, install the 
 
 	mkdir -p ~/Projects/Vagrant
 	cd ~/Projects/Vagrant
-	git clone https://github.com/cvquesty/centos65-pe2015.3.git
+	git clone https://github.com/cvquesty/centos7-pe2015.3.git
 	
 **Change to the Directory and Lauch Vagrant**
 
-	cd ~/Projects/Vagrant/centos65-pe2015.3
+	cd ~/Projects/Vagrant/centos7-pe2015.3
 	vagrant up
 	
 At this point, if everything is in order, your system will begin to orchestrate Virtualbox to create all the needed VMs, download the VM images, Puppet Enterprise, and will configure the client machines, connect them to the master, configure R10k, the console, and prepare your environment for use.
